@@ -376,13 +376,24 @@ footer {
     .headline-l {
         font-size: 34px;
     }
-    
-    .grid {
-        gap: 1rem;
+
+    /* Gallery should go edge-to-edge on small screens */
+    main {
+        padding: 0;
     }
-    
+
+    .grid {
+        padding: 0;
+        gap: 0;
+    }
+
     .item {
-        flex: 0 0 calc(100% );
-        max-width: 500px;
+        flex: 0 0 100%;
+        max-width: none;
+    }
+
+    .item img {
+        max-width: none;
+        width: 100%;
     }
 }

@@ -395,6 +395,12 @@
             const navRight = document.querySelector('.nav-right');
             let currentIndex = 0;
             let visibleItems = [];
+
+            const lightboxDisabledMq = window.matchMedia('(max-width: 768px)');
+
+            function isLightboxDisabled() {
+                return lightboxDisabledMq.matches;
+            }
             
             // Filter functionality
             filterItems.forEach(filter => {
@@ -462,6 +468,7 @@
             items.forEach((item, index) => {
                 const img = item.querySelector('img');
                 img.addEventListener('click', function() {
+                    if (isLightboxDisabled()) return;
                     updateVisibleItems();
                     currentIndex = visibleItems.indexOf(item);
                     showImage(currentIndex);
@@ -477,23 +484,33 @@
             
             navLeft.addEventListener('click', function(e) {
                 e.stopPropagation();
+                if (isLightboxDisabled()) return;
                 navigatePrev();
             });
             
             navRight.addEventListener('click', function(e) {
                 e.stopPropagation();
+                if (isLightboxDisabled()) return;
                 navigateNext();
             });
             
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {
                 if (!overlay.classList.contains('active')) return;
+                if (isLightboxDisabled()) return;
                 
                 if (e.key === 'ArrowLeft') {
                     navigatePrev();
                 } else if (e.key === 'ArrowRight') {
                     navigateNext();
                 } else if (e.key === 'Escape') {
+                    overlay.classList.remove('active');
+                }
+            });
+
+            // If the user resizes into a small viewport, ensure the overlay is closed.
+            lightboxDisabledMq.addEventListener('change', function() {
+                if (isLightboxDisabled()) {
                     overlay.classList.remove('active');
                 }
             });
