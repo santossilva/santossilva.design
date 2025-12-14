@@ -1,0 +1,4 @@
+#2040FF
+(32, 64, 255)
+
+Full · Half · Quarter · Eighth · Null

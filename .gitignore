@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Local editor settings for generated exploration content
+explorations/rgbart/.vscode/

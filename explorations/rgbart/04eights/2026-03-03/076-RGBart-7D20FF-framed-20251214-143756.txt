@@ -1,0 +1,4 @@
+#7D20FF
+(125, 32, 255)
+
+Full · Half · Quarter · Eighth · Null

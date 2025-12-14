@@ -1,0 +1,4 @@
+#7DFFFF
+(125, 255, 255)
+
+Full · Half · Null

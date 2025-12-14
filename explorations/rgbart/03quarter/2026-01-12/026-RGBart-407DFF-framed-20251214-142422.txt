@@ -1,0 +1,4 @@
+#407DFF
+(64, 125, 255)
+
+Full · Half · Quarter · Null

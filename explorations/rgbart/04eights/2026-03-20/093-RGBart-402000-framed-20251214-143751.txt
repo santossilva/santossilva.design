@@ -1,0 +1,4 @@
+#402000
+(64, 32, 0)
+
+Full · Half · Quarter · Eighth · Null
