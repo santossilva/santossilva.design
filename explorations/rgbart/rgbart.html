@@ -395,7 +395,10 @@
     
     <div id="fullscreen-overlay" class="fullscreen-overlay">
         <div class="nav-arrow nav-left">‹</div>
-        <img id="fullscreen-image" src="" alt="">
+        <div class="lightbox-stage" aria-label="Image viewer">
+            <img id="fullscreen-image" class="lightbox-image" src="" alt="">
+            <img id="fullscreen-image-next" class="lightbox-image" src="" alt="">
+        </div>
         <div class="nav-arrow nav-right">›</div>
     </div>
     
@@ -406,12 +409,17 @@
             const grid = document.querySelector('.grid');
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
+            const fullscreenImgNext = document.getElementById('fullscreen-image-next');
             const navLeft = document.querySelector('.nav-left');
             const navRight = document.querySelector('.nav-right');
             let currentIndex = 0;
             let visibleItems = [];
             let currentSort = 'hue_down';
             let lastSwipeAt = 0;
+            let isTransitioning = false;
+
+            const lightboxTransitionMs = 240;
+            const lightboxSwipeOffsetVh = 12;
 
             function getItemsInDomOrder() {
                 return Array.from(grid.querySelectorAll('.item'));
@@ -585,7 +593,7 @@
                 visibleItems = getItemsInDomOrder().filter(item => item.style.display !== 'none');
             }
             
-            function showImage(index) {
+            function showImage(index, direction = 0) {
                 if (visibleItems.length === 0) return;
                 
                 currentIndex = index;
@@ -593,16 +601,74 @@
                 if (currentIndex >= visibleItems.length) currentIndex = 0;
                 
                 const img = visibleItems[currentIndex].querySelector('img');
-                fullscreenImg.src = img.src;
-                fullscreenImg.alt = img.alt;
+
+                if (direction === 0 || fullscreenImg.src === '') {
+                    fullscreenImg.src = img.src;
+                    fullscreenImg.alt = img.alt;
+                    fullscreenImg.style.opacity = '1';
+                    fullscreenImg.style.transform = 'translateY(0)';
+                    fullscreenImgNext.style.opacity = '0';
+                    fullscreenImgNext.style.transform = 'translateY(0)';
+                    fullscreenImgNext.src = '';
+                    fullscreenImgNext.alt = '';
+                    return;
+                }
+
+                if (isTransitioning) return;
+                isTransitioning = true;
+
+                const offset = `${lightboxSwipeOffsetVh}vh`;
+                const incomingFrom = direction > 0 ? offset : `-${offset}`;
+                const outgoingTo = direction > 0 ? `-${offset}` : offset;
+
+                fullscreenImgNext.src = img.src;
+                fullscreenImgNext.alt = img.alt;
+
+                fullscreenImgNext.style.transition = 'none';
+                fullscreenImg.style.transition = 'none';
+                fullscreenImgNext.style.opacity = '0';
+                fullscreenImgNext.style.transform = `translateY(${incomingFrom})`;
+                fullscreenImg.style.opacity = '1';
+                fullscreenImg.style.transform = 'translateY(0)';
+
+                requestAnimationFrame(() => {
+                    fullscreenImgNext.style.transition = `transform ${lightboxTransitionMs}ms ease, opacity ${lightboxTransitionMs}ms ease`;
+                    fullscreenImg.style.transition = `transform ${lightboxTransitionMs}ms ease, opacity ${lightboxTransitionMs}ms ease`;
+
+                    fullscreenImgNext.style.opacity = '1';
+                    fullscreenImgNext.style.transform = 'translateY(0)';
+                    fullscreenImg.style.opacity = '0';
+                    fullscreenImg.style.transform = `translateY(${outgoingTo})`;
+                });
+
+                window.setTimeout(() => {
+                    const oldSrc = fullscreenImg.src;
+                    const oldAlt = fullscreenImg.alt;
+
+                    fullscreenImg.src = fullscreenImgNext.src;
+                    fullscreenImg.alt = fullscreenImgNext.alt;
+                    fullscreenImg.style.transition = 'none';
+                    fullscreenImg.style.opacity = '1';
+                    fullscreenImg.style.transform = 'translateY(0)';
+
+                    fullscreenImgNext.style.transition = 'none';
+                    fullscreenImgNext.style.opacity = '0';
+                    fullscreenImgNext.style.transform = 'translateY(0)';
+                    fullscreenImgNext.src = oldSrc;
+                    fullscreenImgNext.alt = oldAlt;
+                    fullscreenImgNext.src = '';
+                    fullscreenImgNext.alt = '';
+
+                    isTransitioning = false;
+                }, lightboxTransitionMs + 30);
             }
             
             function navigateNext() {
-                showImage(currentIndex + 1);
+                showImage(currentIndex + 1, 1);
             }
             
             function navigatePrev() {
-                showImage(currentIndex - 1);
+                showImage(currentIndex - 1, -1);
             }
 
             function openOverlay() {
@@ -629,7 +695,7 @@
                 img.addEventListener('click', function() {
                     updateVisibleItems();
                     currentIndex = visibleItems.indexOf(item);
-                    showImage(currentIndex);
+                    showImage(currentIndex, 0);
                     openOverlay();
                 });
             });
@@ -650,10 +716,13 @@
                 }
             });
 
-            fullscreenImg.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (Date.now() - lastSwipeAt < 400) return;
-                closeOverlay();
+            overlay.addEventListener('click', function(e) {
+                if (!(e.target instanceof HTMLElement)) return;
+                if (e.target.id === 'fullscreen-image' || e.target.id === 'fullscreen-image-next') {
+                    e.stopPropagation();
+                    if (Date.now() - lastSwipeAt < 400) return;
+                    closeOverlay();
+                }
             });
 
             navLeft.addEventListener('click', function(e) {
