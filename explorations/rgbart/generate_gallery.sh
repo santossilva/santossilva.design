@@ -17,11 +17,11 @@ cat > index.html << 'HTML_START'
     </header>
     
     <div class="filter-bar">
-        <span class="filter-item active" data-value="FF">Full</span> · 
-        <span class="filter-item active" data-value="7D">Half</span> · 
-        <span class="filter-item active" data-value="40">Quarter</span> · 
-        <span class="filter-item active" data-value="20">Eighth</span> · 
-        <span class="filter-item active" data-value="00">Null</span>
+        <span class="filter-item active" data-value="FF">FF</span> · 
+        <span class="filter-item active" data-value="7D">7D</span> · 
+        <span class="filter-item active" data-value="40">40</span> · 
+        <span class="filter-item active" data-value="20">20</span> · 
+        <span class="filter-item active" data-value="00">00</span>
     </div>
     
     <main class="gallery">

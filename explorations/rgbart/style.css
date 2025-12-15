@@ -153,6 +153,62 @@ body {
     user-select: none;
 }
 
+.filter-sort-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    width: 100%;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-label {
+    font-size: 14px;
+    line-height: 1;
+    color: rgba(210, 210, 210, 0.9);
+    user-select: none;
+}
+
+.control-group-filter {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.control-group-sort {
+    flex: 0 0 auto;
+    margin-left: auto;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.sort-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    flex: 0 0 auto;
+    user-select: none;
+}
+
+.sort-item {
+    cursor: pointer;
+    color: #adadad;
+    transition: color 0.2s ease;
+}
+
+.sort-item.active {
+    color: #fff;
+}
+
 .filter-item {
     cursor: pointer;
     color: #adadad;
