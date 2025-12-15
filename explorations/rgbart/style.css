@@ -44,6 +44,11 @@ body {
     line-height: 1.6;
 }
 
+html.no-scroll,
+body.no-scroll {
+    overflow: hidden;
+}
+
 /* Minimal “site header” structure (module / hero / stack / block) */
 .w-inline-block {
     display: inline-block;
@@ -52,7 +57,7 @@ body {
 
 .module {
     width: 100%;
-    padding: 80px 0;
+    padding: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,7 +69,6 @@ body {
 
 .module.hero {
     padding-top: 160px;
-    padding-bottom: 32px;
 }
 
 .stack {
@@ -85,6 +89,33 @@ body {
     gap: 24px;
     padding: 32px;
     align-items: flex-start;
+}
+
+@media (max-width: 991px) {
+    .module {
+        padding: 60px;
+    }
+}
+
+@media (max-width: 767px) {
+    .module {
+        padding: 60px 8px;
+    }
+
+    .module.hero {
+        padding-top: 95px;
+    }
+}
+
+@media (max-width: 479px) {
+    .module {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .block {
+        padding: 24px;
+    }
 }
 
 .headline-lockup,
@@ -279,6 +310,8 @@ main {
     align-items: center;
     z-index: 1000;
     cursor: pointer;
+    overscroll-behavior: contain;
+    touch-action: none;
 }
 
 .fullscreen-overlay.active {
@@ -419,37 +452,46 @@ footer {
     filter: invert(15%) sepia(88%) saturate(7200%) hue-rotate(290deg) brightness(105%) contrast(120%);
 }
 
-@media (max-width: 768px) {
-    .headline-xxl {
-        font-size: 34px;
-    }
-
-    .block {
-        padding: 24px;
-        gap: 20px;
+@media (max-width: 768px) and (min-width: 480px) {
+    /* .headline-xxl {
+        font-size: 40px;
     }
 
     .headline-l {
         font-size: 34px;
-    }
+    } */
 
-    /* Gallery should go edge-to-edge on small screens */
+    /* Gallery should show two columns on mobile */
     main {
         padding: 0;
     }
 
     .grid {
-        padding: 0;
-        gap: 0;
+        padding: 2rem;
+        gap: 8px;
+        justify-content: flex-start;
     }
 
     .item {
-        flex: 0 0 100%;
-        max-width: none;
+        flex: 0 0 calc(50% - 4px);
+        max-width: calc(50% - 4px);
     }
 
     .item img {
         max-width: none;
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .fullscreen-overlay img {
+        width: 100vw;
+        height: 100vh;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .nav-arrow {
+        display: none;
     }
 }

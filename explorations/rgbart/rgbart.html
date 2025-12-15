@@ -411,12 +411,7 @@
             let currentIndex = 0;
             let visibleItems = [];
             let currentSort = 'hue_down';
-
-            const lightboxDisabledMq = window.matchMedia('(max-width: 768px)');
-
-            function isLightboxDisabled() {
-                return lightboxDisabledMq.matches;
-            }
+            let lastSwipeAt = 0;
 
             function getItemsInDomOrder() {
                 return Array.from(grid.querySelectorAll('.item'));
@@ -609,6 +604,18 @@
             function navigatePrev() {
                 showImage(currentIndex - 1);
             }
+
+            function openOverlay() {
+                overlay.classList.add('active');
+                document.documentElement.classList.add('no-scroll');
+                document.body.classList.add('no-scroll');
+            }
+
+            function closeOverlay() {
+                overlay.classList.remove('active');
+                document.documentElement.classList.remove('no-scroll');
+                document.body.classList.remove('no-scroll');
+            }
             
             // Fullscreen functionality
             getItemsInDomOrder().forEach((item, index) => {
@@ -620,11 +627,10 @@
             getItemsInDomOrder().forEach((item) => {
                 const img = item.querySelector('img');
                 img.addEventListener('click', function() {
-                    if (isLightboxDisabled()) return;
                     updateVisibleItems();
                     currentIndex = visibleItems.indexOf(item);
                     showImage(currentIndex);
-                    overlay.classList.add('active');
+                    openOverlay();
                 });
             });
 
@@ -640,42 +646,68 @@
             
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
-                    this.classList.remove('active');
+                    closeOverlay();
                 }
             });
-            
+
+            fullscreenImg.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (Date.now() - lastSwipeAt < 400) return;
+                closeOverlay();
+            });
+
             navLeft.addEventListener('click', function(e) {
                 e.stopPropagation();
-                if (isLightboxDisabled()) return;
                 navigatePrev();
             });
             
             navRight.addEventListener('click', function(e) {
                 e.stopPropagation();
-                if (isLightboxDisabled()) return;
                 navigateNext();
             });
             
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {
                 if (!overlay.classList.contains('active')) return;
-                if (isLightboxDisabled()) return;
                 
                 if (e.key === 'ArrowLeft') {
                     navigatePrev();
                 } else if (e.key === 'ArrowRight') {
                     navigateNext();
                 } else if (e.key === 'Escape') {
-                    overlay.classList.remove('active');
+                    closeOverlay();
                 }
             });
 
-            // If the user resizes into a small viewport, ensure the overlay is closed.
-            lightboxDisabledMq.addEventListener('change', function() {
-                if (isLightboxDisabled()) {
-                    overlay.classList.remove('active');
+            // Touch swipe (vertical) navigation inside lightbox (mobile-friendly)
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            overlay.addEventListener('touchstart', function(e) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.touches.length !== 1) return;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            overlay.addEventListener('touchend', function(e) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.changedTouches.length !== 1) return;
+
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+
+                const absX = Math.abs(dx);
+                const absY = Math.abs(dy);
+                if (absY < 40 || absY < absX) return;
+
+                lastSwipeAt = Date.now();
+                if (dy < 0) {
+                    navigateNext();
+                } else {
+                    navigatePrev();
                 }
-            });
+            }, { passive: true });
         });
     </script>
 </body>
