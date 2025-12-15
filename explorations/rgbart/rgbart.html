@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Between Channels</title>
-    <link rel="stylesheet" href="style.css?v=20251214">
+    <link rel="stylesheet" href="style.css?v=20251215">
 </head>
 <body>
     <header class="module hero">
@@ -679,34 +679,69 @@
                 }
             });
 
-            // Touch swipe (vertical) navigation inside lightbox (mobile-friendly)
-            let touchStartX = 0;
-            let touchStartY = 0;
+            // Swipe (vertical) navigation inside lightbox (mobile-friendly)
+            const swipeThresholdPx = 50;
+            let gestureStartX = 0;
+            let gestureStartY = 0;
+            let gestureActive = false;
+            let gesturePointerId = null;
 
+            function onGestureStart(x, y) {
+                gestureStartX = x;
+                gestureStartY = y;
+                gestureActive = true;
+            }
+
+            function onGestureEnd(x, y) {
+                if (!gestureActive) return;
+                gestureActive = false;
+
+                const dx = x - gestureStartX;
+                const dy = y - gestureStartY;
+                const absX = Math.abs(dx);
+                const absY = Math.abs(dy);
+                if (absY < swipeThresholdPx || absY < absX) return;
+
+                lastSwipeAt = Date.now();
+                if (dy < 0) navigateNext();
+                else navigatePrev();
+            }
+
+            overlay.addEventListener('pointerdown', function(e) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.pointerType === 'mouse') return;
+                gesturePointerId = e.pointerId;
+                onGestureStart(e.clientX, e.clientY);
+                try {
+                    overlay.setPointerCapture(e.pointerId);
+                } catch (_) {}
+            });
+
+            overlay.addEventListener('pointerup', function(e) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.pointerType === 'mouse') return;
+                if (gesturePointerId !== null && e.pointerId !== gesturePointerId) return;
+                gesturePointerId = null;
+                onGestureEnd(e.clientX, e.clientY);
+            });
+
+            overlay.addEventListener('pointercancel', function(e) {
+                if (gesturePointerId !== null && e.pointerId !== gesturePointerId) return;
+                gesturePointerId = null;
+                gestureActive = false;
+            });
+
+            // Fallback for browsers without Pointer Events
             overlay.addEventListener('touchstart', function(e) {
                 if (!overlay.classList.contains('active')) return;
                 if (e.touches.length !== 1) return;
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
+                onGestureStart(e.touches[0].clientX, e.touches[0].clientY);
             }, { passive: true });
 
             overlay.addEventListener('touchend', function(e) {
                 if (!overlay.classList.contains('active')) return;
                 if (e.changedTouches.length !== 1) return;
-
-                const dx = e.changedTouches[0].clientX - touchStartX;
-                const dy = e.changedTouches[0].clientY - touchStartY;
-
-                const absX = Math.abs(dx);
-                const absY = Math.abs(dy);
-                if (absY < 40 || absY < absX) return;
-
-                lastSwipeAt = Date.now();
-                if (dy < 0) {
-                    navigateNext();
-                } else {
-                    navigatePrev();
-                }
+                onGestureEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
             }, { passive: true });
         });
     </script>
