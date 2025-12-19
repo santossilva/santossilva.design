@@ -1,0 +1,8 @@
+Color perception between the channels.
+
+
+#002040
+rbg(0, 32, 64)
+
+This project explores how colour is perceived rather than displayed.
+Each image is composed of separated RGB light channels arranged in discrete patterns. No blended colours are present in the image itself. The perceived colour emerges in the viewer's mind, between the channels, as the visual system integrates the signals into a single experience.

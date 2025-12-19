@@ -1,4 +1,0 @@
-#7D4040
-(125, 64, 64)
-
-Full · Half · Quarter · Null

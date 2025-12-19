@@ -1,4 +1,0 @@
-#00207D
-(0, 32, 125)
-
-Full · Half · Quarter · Eighth · Null

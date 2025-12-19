@@ -1,4 +1,0 @@
-#40FF40
-(64, 255, 64)
-
-Full · Half · Quarter · Null

@@ -98,8 +98,11 @@ cat >> index.html << 'HTML_END'
     
     <div id="fullscreen-overlay" class="fullscreen-overlay">
         <div class="nav-arrow nav-left">‹</div>
-        <img id="fullscreen-image" src="" alt="">
+        <div class="lightbox-stage" aria-label="Image viewer">
+            <img id="fullscreen-image" class="lightbox-image" src="" alt="">
+        </div>
         <div class="nav-arrow nav-right">›</div>
+        <div id="lightbox-caption" class="lightbox-caption"></div>
     </div>
     
     <script>
@@ -108,6 +111,7 @@ cat >> index.html << 'HTML_END'
             const items = document.querySelectorAll('.item');
             const overlay = document.getElementById('fullscreen-overlay');
             const fullscreenImg = document.getElementById('fullscreen-image');
+            const lightboxCaption = document.getElementById('lightbox-caption');
             const navLeft = document.querySelector('.nav-left');
             const navRight = document.querySelector('.nav-right');
             let currentIndex = 0;
@@ -163,6 +167,7 @@ cat >> index.html << 'HTML_END'
                 const img = visibleItems[currentIndex].querySelector('img');
                 fullscreenImg.src = img.src;
                 fullscreenImg.alt = img.alt;
+                lightboxCaption.textContent = img.alt;
             }
             
             function navigateNext() {

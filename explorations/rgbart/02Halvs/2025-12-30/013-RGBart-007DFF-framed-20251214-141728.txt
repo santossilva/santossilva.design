@@ -1,4 +1,0 @@
-#007DFF
-(0, 125, 255)
-
-Full · Half · Null

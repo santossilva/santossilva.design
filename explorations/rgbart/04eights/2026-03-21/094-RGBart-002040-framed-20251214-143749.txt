@@ -1,4 +1,0 @@
-#002040
-(0, 32, 64)
-
-Full · Half · Quarter · Eighth · Null
