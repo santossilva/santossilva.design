@@ -1,10 +1,10 @@
 <!DOCTYPE html><!--  This site was created in Webflow. https://webflow.com  --><!--  Last Published: Thu Jul 25 2024 21:41:04 GMT+0000 (Coordinated Universal Time)  -->
-<html data-wf-page="664e3a90e1a6ce244dc6ddaa" data-wf-site="5820ee3eb751b3cf64779cc5">
+<html data-wf-page="66506c28bdb4c619cf5436e0" data-wf-site="5820ee3eb751b3cf64779cc5">
 <head>
   <meta charset="utf-8">
-  <title>ReComm</title>
-  <meta content="ReComm" property="og:title">
-  <meta content="ReComm" property="twitter:title">
+  <title>Systematically</title>
+  <meta content="Systematically" property="og:title">
+  <meta content="Systematically" property="twitter:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="../css/normalize.css" rel="stylesheet" type="text/css">
@@ -32,115 +32,103 @@
       <div class="block">
         <a href="../index.html" class="w-inline-block"><img src="../images/Vectors-Wrapper.svg" loading="lazy" width="35.800479888916016" height="49.053009033203125" alt="Logo" class="image-2"></a>
       </div>
-      <div class="block">
+      <div class="block breadcrumb">
         <div class="breadcrumbsgroup">
           <a href="../work.html" class="w-inline-block">
             <div class="breadcrumb">Work</div>
           </a>
-          <a href="../work/godaddy.html" class="breadcrumbsgroup w-inline-block">
-            <div class="breadcrumbdivider">/</div>
-            <div class="breadcrumb">GoDaddy</div>
-          </a>
-          <div class="breadcrumbsgroup">
-            <div class="breadcrumbdivider-2">/</div>
-            <div class="breadcrumbactive">ReComm</div>
-          </div>
+          <div class="breadcrumbdivider-2">/</div>
+          <div class="breadcrumbactive">Systematically</div>
         </div>
       </div>
       <div class="block">
         <div class="headline-lockup">
           <div class="headline-group">
-            <div class="headline-xxl accent-gradient">I played a key role in developing ReComm, a robust and flexible multi-brand eCommerce platform <strong>for GoDaddy Brands.</strong></div>
+            <div class="headline-xxl accent-gradient">Systematically makes design-system logic explicit.</div>
           </div>
         </div>
+        <div class="paragraph-l">It is a design token authoring tool and cloud IDE built around a custom DSL. The goal is to make tokens, scales, modes, references, and outputs readable as rules instead of scattered across files and tools.</div>
       </div>
-    </div><img src="../images/Image-Recomm.png" loading="lazy" sizes="(max-width: 479px) 97vw, (max-width: 767px) 98vw, (max-width: 991px) 88vw, (max-width: 1777px) 90vw, 1600px" srcset="../images/Image-Recomm-p-500.png 500w, ../images/Image-Recomm-p-800.png 800w, ../images/Image-Recomm-p-1080.png 1080w, ../images/Image-Recomm.png 1600w" alt="ReComm UI examples">
+    </div><img src="../images/systematically-hero.png" loading="lazy" alt="Systematically product interface" class="imagehero">
     <div class="stack">
       <div class="block">
-        <div class="div-block-5">
-          <div class="paragraph-l">This platform enabled efficient management of multiple brands across the EMEA market. Its brand-agnostic design not only reduced operational complexities but also significantly boosted revenue by enhancing customer experiences across the brand portfolio.</div>
+        <div class="paragraph-l">The DSL is the core of the work. It gives design systems a way to describe relationships, generate numeric scales, resolve references, and export to formats like CSS, W3C Design Tokens, Tokens Studio, and Figma Variables.</div>
+        <div class="inline-action">
+          <div class="arrow-right-up"><img src="../images/Vectors-Wrapper_1.svg" loading="lazy" width="12" height="12" alt="" class="vectors-wrapper-2"></div>
+          <div class="case-link-copy">Open the live product at <a href="https://systematically.io" target="_blank" class="hyperlink">systematically.io</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="module">
-    <div class="stack">
+    <div class="stack vertical">
       <div class="block">
         <div class="headline-lockup">
           <div class="headline-group">
             <div class="eyebrow-s">Background</div>
-            <div class="headline-s">In 2017 GoDaddy acquired Host Europe Group (HEG), a prominent provider of web hosting and domain services, catering to individuals, small businesses, and large enterprises alike.</div>
+            <div class="headline-s">Design tokens are often treated as static values, but the useful parts of a design system are the relationships behind those values.</div>
           </div>
         </div>
-        <div class="paragraph-l">HEG operated several brands, such as Host Europe, 123Reg, DomainFactory, and PlusServer, each targeting specific market segments and geographic regions. This acquisition was a significant move for GoDaddy, as it aimed to expand its presence in the European market and enhance its portfolio of hosting and domain services.</div>
+        <div class="paragraph-l">Spacing scales, typography steps, colour modes, references, aliases, and contrast decisions all carry logic. Systematically is an attempt to write that logic down in a way people can read, edit, compile, and use in production tools.</div>
       </div>
       <div class="block">
         <div class="headline-lockup">
           <div class="headline-group">
             <div class="eyebrow-s">Challenge</div>
-            <div class="headline-s">Following the acquisition of Host Europe Group (HEG) by GoDaddy, several challenges emerged, including managing multiple brands with distinct identities and diverse customer bases, inefficiencies stemming from varied tech stacks, and the complexity of integrating these systems into GoDaddy&#x27;s existing infrastructure.</div>
+            <div class="headline-s">The challenge was to keep the language expressive without making it feel like a developer-only tool.</div>
           </div>
         </div>
-        <div class="paragraph-l">Additionally, ensuring regulatory compliance across different European jurisdictions added another layer of complexity. These factors necessitated a strategic approach to consolidate operations, maintain brand loyalty, and streamline technological integration without disrupting service quality.</div>
+        <div class="paragraph-l">The product needed to support real design-system work: named tokens, semantic scopes, modes, generated scales, references, exports, documentation, and Figma sync. It also needed to stay legible enough for designers and design technologists to reason about the system directly.</div>
       </div>
       <div class="block">
         <div class="headline-lockup">
           <div class="headline-group">
             <div class="eyebrow-s">Solution</div>
-            <div class="headline-s">GoDaddy implemented a multi-brand eCommerce platform, ReComm. This platform preserved the unique identities and autonomy of each brand under the Host Europe Group, allowing for tailored marketing strategies and product offerings specific to each brand&#x27;s audience.</div>
+            <div class="headline-s">The solution is a readable DSL with an editor, compiler, documentation, and a Figma bridge around it.</div>
           </div>
         </div>
-        <div class="paragraph-l">The platform centralized key operational aspects like payment processing and customer support, greatly enhancing efficiency and reducing overhead costs while ensuring a consistent and seamless customer experience. Designed for scalability and flexibility, the platform accommodated future brand additions and adaptations to market trends and regulations, thereby ensuring compliance across varying jurisdictions and supporting sustainable growth within GoDaddy’s expanding market presence.</div>
+        <div class="paragraph-l">The editor makes the source easy to write. The compiler turns it into structured outputs. The docs explain the grammar and workflows. The Figma plugin connects compiled variables back to design production. Each part can move independently, but the DSL remains the shared source.</div>
       </div>
       <div class="block">
         <div class="stack horizontal">
           <div class="eyebrow-s">My Role</div>
-          <div class="eyebrow-s alt">April 2017 - Sep 2022</div>
+          <div class="eyebrow-s alt">Product design, systems design, and engineering</div>
         </div>
         <div class="headline-lockup">
           <div class="headline-group">
-            <div class="headline-s">My individual contributions, stakeholder management, and strategic thinking were crucial in implementing a robust design practice that supported ReComm&#x27;s multi-brand eCommerce platform, ensuring its growth and efficiency.</div>
+            <div class="headline-s">I shaped the product concept, the language model, the editor experience, and the technical structure behind the workflow.</div>
           </div>
         </div>
-        <div class="paragraph-l">Initially, as a Senior Designer, I delivered user experience designs for multiple apps while crafting a multi-brand design system. As I transitioned into a managerial role, I oversaw daily operations, mentored team members, and engaged in high-level strategic planning. <br></div>
+        <div class="paragraph-l">The work spans product framing, UX design, interaction design, DSL design, documentation, SvelteKit implementation, compiler integration, and Figma workflows. The emphasis is on making design-system decisions visible, testable, and repeatable.</div>
       </div>
-      <div class="block"></div>
     </div>
   </div>
   <section class="module background01">
     <div class="stack">
       <div class="block">
         <div class="headline-lockup-3">
-          <div class="headline-l">I crafted innovative design solutions, resulting in ReComm&#x27;s flexible and robust design-system.</div>
-          <div class="paragraph-2">Through experimentation, innovative design solutions, and collaborative efforts, I led the creation of ReComm&#x27;s design system, that not only streamlined the design process but also allowed for a high level of customization, enabling efficient scalability and adaptability for future challenges.<br></div>
-        </div>
-        <div class="inline-action"><img src="../images/document.svg" loading="lazy" alt="" class="image-8">
-          <div class="case-link-copy">ReComm&#x27;s <a href="../work/recomms-design-system.html" class="hyperlink">Design System</a> in Detail</div>
+          <div class="headline-l">The work is less about storing tokens and more about describing how they are made.</div>
+          <div class="paragraph-2">A token can be a fixed value, but a system often needs more than that: scales, formulas, modes, references, output formats, and rules for how values relate to each other. The DSL gives those decisions a place to live.</div>
         </div>
       </div>
       <div class="block">
         <div class="headline-lockup-3">
-          <div class="headline-l">I delivered user-centered design experiences that catered to all ReComm tenants.<br></div>
-          <div class="paragraph-2">By conducting research, fostering cross-functional collaboration, and employing user experience design principles, I ensured streamlined app integration and seamless user journeys.</div>
+          <div class="headline-l">A readable source can become many outputs.</div>
+          <div class="paragraph-2">The same source can compile into design-token formats for code, documentation, and Figma. That keeps the intent closer to the output and reduces the amount of manual translation between design and implementation.</div>
         </div>
       </div>
     </div>
   </section>
-  <section class="module strip">
+  <section class="module strip background01">
     <div class="stack">
-      <div class="block breadcrumb">
+      <div class="block">
         <div class="breadcrumbsgroup">
           <a href="../work.html" class="w-inline-block">
             <div class="breadcrumb">Work</div>
           </a>
-          <a href="../work/godaddy.html" class="breadcrumbsgroup w-inline-block">
-            <div class="breadcrumbdivider">/</div>
-            <div class="breadcrumb">GoDaddy</div>
-          </a>
-          <div class="breadcrumbsgroup">
-            <div class="breadcrumbdivider-2">/</div>
-            <div class="breadcrumbactive">ReComm</div>
-          </div>
+          <div class="breadcrumbdivider-2">/</div>
+          <div class="breadcrumbactive">Systematically</div>
         </div>
       </div>
     </div>
